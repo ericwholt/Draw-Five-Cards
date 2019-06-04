@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DeckOfCardsAPI.Models.Card>
+
+<div class="container">
+    <form action="~/Home" method="post">
+        <div class="row">
+            @if (int.Parse(Model.Count().ToString()) <= 0)
+            {
+                <h4>No cards left in deck</h4>
+            }
+            @{
+                int count = 0;
+            }
+            @foreach (var card in Model)
+            {
+                <div class="col-md-2">
+                    <div class="row">
+
+                        <h4>
+                            @card.Value
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <img src="@card.ImageUrl" alt="Alternate Text" />
+
+                    </div>
+                    <div class="row">
+
+                        @{
+                            count++;
+                            string inputName = $"Card{count}";
+                        }
+                        <p class="text-center">KEEP <input type="checkbox" name="@inputName" value="@card.Code" /> @card.Value</p>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="row">
+            <input type="hidden" name="count" value="5" />
+            <input type="submit" name="submit" value="Draw" />
+        </div>
+    </form>
+</div>
